@@ -1,0 +1,7 @@
+## default.yml
+
+## production.yml
+DB:
+  USER: "root"
+  PASSWORD: "root"
+  HOST: "localhost-prod"

@@ -1,0 +1,32 @@
+version: '3'  
+services:  
+  nest:  
+    build:  
+      context: .  
+      dockerfile: Dockerfile # 指向你的Nest.js应用程序的Dockerfile 
+    # image: nest-blog-nest:latest # 指向你的Nest.js应用程序的镜像  
+    ports:  
+      - "3000:3000" # 将容器的3000端口映射到宿主机的3000端口  
+    depends_on:  
+      - mysql # 确保mysql服务先启动  
+    environment:  
+      - DB_HOST=mysql # Nest.js应用程序连接到名为mysql的容器的MySQL实例  
+      - DB_PORT=3306  
+      - DB_USER=root  
+      - DB_PASSWORD=123456  
+      - DB_NAME=test # 假设你的Nest.js应用程序将使用这个数据库名  
+  
+  mysql:  
+    image: mysql:8.3.0  
+    container_name: nest-mysql  
+    ports:  
+      - "9906:3306" # 将容器的3306端口映射到宿主机的9906端口（可选，通常只在需要直接访问数据库时才需要）  
+    environment:  
+      MYSQL_ROOT_PASSWORD: 123456  
+      MYSQL_DATABASE: test # 在容器启动时创建一个名为test的数据库  
+    volumes:  
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # 挂载自定义的SQL脚本来初始化数据库  
+      - mysql_data:/var/lib/mysql # 持久化MySQL数据到宿主机  
+  
+volumes:  
+  mysql_data:
