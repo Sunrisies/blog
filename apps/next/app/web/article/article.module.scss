@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  > div:nth-child(2) {
+    width: 75%;
+  }
+}
+

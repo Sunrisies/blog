@@ -1,0 +1,11 @@
+.edit_container {
+  height: 100%;
+  .edit_header {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .md_editor_rt {
+    height: 96% !important;
+  }
+}

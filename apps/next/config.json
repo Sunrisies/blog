@@ -1,0 +1,15 @@
+ {
+  "title": "Next.js Blog",
+  "description": "A blog built with Next.js",
+  "author": "Zhuzhongqian",
+  "email": "zhuzhongqian95@gmail.com",
+  "github": "https://github.com/zhuzhongqian",
+  "linkedin": "https://www.linkedin.com/in/zhuzhongqian95/",
+  "rss": "https://zhuzhongqian.github.io/next-blog/feed.xml",
+  "domain": "https://zhuzhongqian.github.io/next-blog",
+  "language": "en-US",
+  "postsPerPage": 5,
+  "dockerName":"next",
+  "dockerTag":"2",
+  "dockerImage":"next"
+}
