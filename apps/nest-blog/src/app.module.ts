@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { Article } from './article/entities/article.entity';
 import { ArticleModule } from './article/article.module';
+
 const entities = [User, Article] || __dirname + '/**/**.entity{.ts}';
 @Module({
   imports: [
