@@ -12,8 +12,45 @@ export class ArticleService {
     private articleRepository: Repository<Article>,
   ) {}
 
-  create(createArticleDto: CreateArticleDto) {
-    const article = this.articleRepository.create(createArticleDto);
+ async create(createArticleDto: CreateArticleDto) {
+    if (!createArticleDto.cover || !createArticleDto.title || !createArticleDto.author || !createArticleDto.content) {
+      throw new Error('cover, title, author, and content are required');
+    }
+    // createArticleDto 中的cover跟title,author ,content都是必填项,创建时间和更新时间由数据库自动生成
+    // createArticleDto.publish_time = new Date();
+    const article =await this.articleRepository.create(createArticleDto);
+    const result =await this.articleRepository.save(article);
+    if(result){
+      return {
+        code: 200,
+        message: '创建成功',
+        data: result,
+      };
+    }else{
+      return {
+        code: 500,
+        message: '创建失败',
+        data: null,
+      };
+    }
+  }
+
+  async updateArticle(id: number, updateArticleDto: UpdateArticleDto) {
+    const article = await this.articleRepository.findOneBy({ id });
+    if (!article) {
+      throw new Error('文章不存在');
+    }
+    if (updateArticleDto.cover) {
+      article.cover = updateArticleDto.cover;
+    }
+    if (updateArticleDto.title) {
+      article.title = updateArticleDto.title;
+    }
+    if (updateArticleDto.author) {
+      article.author = updateArticleDto.author;
+    }
+    if (updateArticleDto.content) {
+    }
     return this.articleRepository.save(article);
   }
 
@@ -28,34 +65,30 @@ export class ArticleService {
         cover: article.cover,
       });
     });
-console.log(data, '===');
+    console.log(data, '===');
     return {
       data: data,
       total: articles.length,
       page: 1,
       pageSize: 10,
-      Code: 200,
+      code: 200,
       message: 'success',
     };
   }
 
   async findOne(id: number) {
     const article = await this.articleRepository.findOneBy({ id });
-    console.log(article, '===');
     if (article) {
       return {
-        id: article.id,
-        title: article.title,
-        author: article.author,
-        cover: article.cover,
-        content: article.content,
-        Code: 200,
+        data: { ...article },
+        code: 200,
         message: 'success',
       };
     } else {
       return {
-        Code: 404,
+        code: 404,
         message: 'not found',
+        data: null,
       };
     }
   }
@@ -64,7 +97,19 @@ console.log(data, '===');
     return `This action updates a #${id} article`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
+  async remove(id: number) {
+    const article = await this.articleRepository.findOneBy({ id });
+    if (article) {
+      await this.articleRepository.delete(id);
+      return {
+        code: 200,
+        message: '删除成功',
+      };
+    } else {
+      return {
+        code: 404,
+        message: '文章不存在',
+      };
+    }
   }
 }

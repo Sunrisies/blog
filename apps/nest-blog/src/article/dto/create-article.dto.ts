@@ -27,11 +27,11 @@ export class CreateArticleDto {
 
   // 文章发布时间
 
-  publishTime: Date;
+  publish_time: Date;
 
   // 文章更新时间
 
-  updateTime: Date;
+  update_time: Date;
 
   // 文章浏览量
 
@@ -39,21 +39,21 @@ export class CreateArticleDto {
 
   // 文章是否置顶
 
-  isTop: boolean;
+  is_top: boolean;
 
   // 文章是否推荐
 
-  isRecommend: boolean;
+  is_recommend: boolean;
 
   // 文章是否删除
 
-  isDelete: boolean;
+  is_delete: boolean;
 
   // 文章是否发布
 
-  isPublish: boolean;
+  is_publish: boolean;
 
   // 文章是否隐藏
 
-  isHide: boolean;
+  is_hide: boolean;
 }

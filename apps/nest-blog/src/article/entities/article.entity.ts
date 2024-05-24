@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn,UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Article {
@@ -28,27 +28,27 @@ export class Article {
   @Column()
   author: string;
 
-  @Column()
-  publish_time: string;
+  @UpdateDateColumn()
+  publish_time: Date;
 
-  @Column()
-  update_time: string;
+  @UpdateDateColumn()
+  update_time: Date;
 
   @Column()
   views: number;
 
-  @Column()
+  @Column({ default: false })
   is_top: boolean;
 
-  @Column()
+  @Column({ default: false })
   is_recommend: boolean;
 
-  @Column()
+  @Column({ default: false })
   is_delete: boolean;
 
-  @Column()
+  @Column({ default: false })
   is_publish: boolean;
 
-  @Column()
+  @Column({ default: false })
   is_hide: boolean;
 }
