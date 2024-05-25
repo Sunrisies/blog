@@ -9,7 +9,7 @@ import { Observable, map } from 'rxjs';
 interface Data<T> {
   data: T;
   code: number;
-  msg: string;
+  message: string;
 }
 
 export class ResponseInterceptor<T> implements NestInterceptor {
@@ -17,7 +17,7 @@ export class ResponseInterceptor<T> implements NestInterceptor {
     return next
       .handle()
       .pipe(
-        map(({ data, msg = '请求成功', code = 200 }) => ({ code, msg, data })),
+        map(({ data, message = '请求成功', code = 200 }) => ({ code, message, data })),
       );
   }
 }
