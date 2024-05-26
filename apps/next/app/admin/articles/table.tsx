@@ -65,7 +65,7 @@ const ArticleList = async ({dataSource}:{dataSource:any}) => {
       render: (_, record) =>
         dataSource.length >= 1 ? (
           <Popconfirm
-            title="Sure to delete?"
+            title="是否删除该文章?"
             onConfirm={() => handleDelete(record.id)}
           >
             <a>删除</a>
@@ -74,11 +74,8 @@ const ArticleList = async ({dataSource}:{dataSource:any}) => {
     },
   ];
   const handleDelete =async (key: React.Key) => {
-    console.log(key, "key");
     deleteArticle(key as number);
-   const newData = await filterFetch();
-   console.log(newData, "newData");
-    // setDataSource(newData);
+   await filterFetch();
   };
   console.log(dataSource, "articleList");
   return (
