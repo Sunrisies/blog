@@ -14,8 +14,8 @@ const entities = [User, Article] || __dirname + '/**/**.entity{.ts}';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      // host: 'mysql',
-      host: 'localhost',
+      host: 'mysql',
+      // host: 'localhost',
       port: 3306,
       username: 'root',
       password: '123456',
