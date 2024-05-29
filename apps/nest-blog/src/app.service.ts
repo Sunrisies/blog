@@ -1,4 +1,4 @@
-import { Injectable, UseInterceptors } from '@nestjs/common';
+import { Injectable,UseInterceptors  } from '@nestjs/common';
 import { ResponseInterceptor } from './utils/response.interceotor';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class AppService {
   getHello(): any {
     return {
       msg: 'Hello World!',
-      data: null,
+      data:null
     };
   }
 }

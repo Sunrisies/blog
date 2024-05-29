@@ -5,6 +5,8 @@
 -  @nestjs/typeorm typeorm mysql2 安装命令
 - - `pnpm i @nestjs/typeorm typeorm mysql2 --save`
 
+-- 校验 pnpm i joi --save
+
 
 - 2024.4.17
   - 项目名称：nest-blog

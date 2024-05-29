@@ -33,17 +33,16 @@ const deleteArticle = async (id: number) => {
     throw new Error("Failed to delete data");
   }
   let data = await res.json();
-  if(data.code === 200){
+  if (data.code === 200) {
     message.success(data.message);
-    
-  }else {
+  } else {
     message.error(data.message);
   }
 };
 
-const ArticleList = async ({dataSource}:{dataSource:any}) => {
-  console.log('=1=1=1=',dataSource)
-//   const articleList = await filterFetch();
+const ArticleList = async ({ dataSource }: { dataSource: any }) => {
+  console.log("=1=1=1=", dataSource);
+  //   const articleList = await filterFetch();
 
   const columns = [
     {
@@ -73,9 +72,9 @@ const ArticleList = async ({dataSource}:{dataSource:any}) => {
         ) : null,
     },
   ];
-  const handleDelete =async (key: React.Key) => {
+  const handleDelete = async (key: React.Key) => {
     deleteArticle(key as number);
-   await filterFetch();
+    await filterFetch();
   };
   console.log(dataSource, "articleList");
   return (

@@ -8,20 +8,59 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { Article } from './article/entities/article.entity';
 import { ArticleModule } from './article/article.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as Joi from 'joi';
+import configuration from './configuration';
 
 const entities = [User, Article] || __dirname + '/**/**.entity{.ts}';
+
+interface DatabaseConfig {
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  database: string;
+}
+
+// nest_blog
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'mysql',
-      // host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'test',
-      entities: [...entities],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration], //加载配置文件
+
+      // 校验的是yaml格式的配置文件
+      validationSchema: Joi.object({
+        //   http: Joi.object({
+        //     port: Joi.number().default(3000).required(),
+        //   }).required(),
+        db: Joi.object({
+          // host: Joi.string(),
+          // port: Joi.string().default('3306'),
+          username: Joi.string().required(),
+          // password: Joi.string().required(),
+          // database: Joi.string().required(),
+        }),
+        //   // DATABASE_HOST: Joi.string().required(),
+        //   // DATABASE_PORT: Joi.number().required(),
+        //   // DATABASE_USERNAME: Joi.string().required(),
+        //   // DATABASE_PASSWORD: Joi.string().required(),
+        //   // DATABASE_NAME: Joi.string().required(),
+      }),
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<DatabaseConfig>('db').host,
+        port: configService.get<DatabaseConfig>('db').port,
+        username: configService.get<DatabaseConfig>('db').username,
+        password: configService.get<DatabaseConfig>('db').password,
+        database: configService.get<DatabaseConfig>('db').database,
+        entities: [...entities],
+        synchronize: true,
+      }),
     }),
     UserModule,
     ArticleModule,

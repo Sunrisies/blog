@@ -1,6 +1,0 @@
-DB:
-  USER: "oot"
-  PASSWORD: "root"
-  HOST: "localhost"
-  PORT: 3306
-  TYPE: "yaml"
