@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-
+import { LoginGuard } from '../login.guard';
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
@@ -19,7 +20,7 @@ export class ArticleController {
   create(@Body() createArticleDto: CreateArticleDto) {
     return this.articleService.create(createArticleDto);
   }
-
+  @UseGuards(LoginGuard)
   @Get()
   findAll() {
     return this.articleService.findAll();

@@ -1,9 +1,9 @@
 export class CreateUserDto {
-  id: number;
-
-  firstName: string;
-
-  lastName: string;
-
-  isActive: boolean;
+  user_name: string;
+  pass_word: string;
+  image: string;
+  phone: string;
+  email: string;
+  update_time: string;
+  create_time: string;
 }

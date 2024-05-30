@@ -2,18 +2,19 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { DataSource } from 'typeorm';
 import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
+import { Users } from './user/entities/user.entity';
 import { Article } from './article/entities/article.entity';
 import { ArticleModule } from './article/article.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
+import { LoginGuard } from './login.guard';
+import { UnauthorizedExceptionFilter } from './utils/unauthorized-exception.filter';
 import configuration from './configuration';
-
-const entities = [User, Article] || __dirname + '/**/**.entity{.ts}';
-
+const entities = [Users, Article];
 interface DatabaseConfig {
   host: string;
   port: number;
@@ -62,11 +63,28 @@ interface DatabaseConfig {
         synchronize: true,
       }),
     }),
+    JwtModule.register({
+      global: true,
+      secret: 'guang',
+      signOptions: { expiresIn: '7d' },
+    }),
     UserModule,
     ArticleModule,
+    TypeOrmModule.forFeature([Users]),
   ],
+
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: UnauthorizedExceptionFilter,
+    },
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}

@@ -5,31 +5,41 @@ import {
   Inject,
   Injectable,
   UnauthorizedException,
+  Module,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
+import * as cookie from 'cookie';
+import { APP_FILTER } from '@nestjs/core';
+import {  } from './utils/unauthorized-exception.filter';
 let info;
 @Injectable()
+// @Module({
+//   providers: [
+//     {
+//       provide: APP_FILTER,
+//       useClass: UnauthorizedExceptionFilter,
+//     },
+//   ],
+// })
 export class LoginGuard implements CanActivate {
   @Inject(JwtService)
   private jwtService: JwtService;
-
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(context: ExecutionContext): any {
     const request: Request = context.switchToHttp().getRequest();
+    // 获取cookie
+    console.log(cookie, 'cookiecookie');
+    const cookieString = request.headers.cookie || ''; // user_id=1; user_name=%E6%9C%9D%E9%98%B3
+    const parsedCookies = cookie.parse(cookieString);
 
-    const bearer = request.header('authorization') || '';
-    // const bearer = authorization.split(' ');
-    // console.log(bearer, 'bearer');
-    if (!bearer || bearer.length < 2) {
-      throw new UnauthorizedException('登录 token 错误');
+    const token = parsedCookies.token;
+    console.log(token, 'tokentoken');
+    if (!token) {
+      throw new UnauthorizedException('请重新登录');
     }
-
-    const token = bearer;
-
     try {
       info = this.jwtService.verify(token);
+      console.log(info, 'infoinfo');
       (request as any).user = info.user;
       return true;
     } catch (e) {

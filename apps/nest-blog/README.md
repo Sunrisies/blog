@@ -7,6 +7,8 @@
 
 -- 校验 pnpm i joi --save
 
+-- 安装 class-validator class-transformer --save
+
 
 - 2024.4.17
   - 项目名称：nest-blog
@@ -23,6 +25,7 @@
     - 添加了mysql数据库
 
   - 添加文章模块 2024.5.26
+  - 初步完成登录接口跟注册接口 2024.5.30
 
 - 2024.4.26
   - 初步添加文章模块
