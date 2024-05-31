@@ -59,6 +59,7 @@ export class AppService {
     const value = await this.redisClient.keys('*');
     const tokens = await this.redisClient.get('token');
     console.log(value, 'redis', tokens);
+    console.log(data, 'data');
     const user = await this.usersRepository.findOne({
       where: {
         user_name: data.user_name,
@@ -79,7 +80,7 @@ export class AppService {
             username: user.user_name,
           },
           {
-            expiresIn: '30m',
+            expiresIn: '30s',
           },
         );
 
@@ -91,14 +92,6 @@ export class AppService {
             expiresIn: '7d',
           },
         );
-        res.cookie('user_id', user.id, {
-          maxAge: 1000 * 60 * 60 * 24 * 7,
-          httpOnly: true,
-        });
-        // res.cookie('user_name', user.user_name, {
-        //   maxAge: 1000 * 60 * 60 * 24 * 7,
-        //   httpOnly: true,
-        // });
         console.log(access_token, 'user');
 
         res.cookie('refresh_token', refresh_token, {
@@ -106,7 +99,7 @@ export class AppService {
           httpOnly: true,
         });
         res.cookie('access_token', access_token, {
-          maxAge: 1000 * 60 * 30,
+          maxAge: 1000 * 30,
           httpOnly: true,
         });
         return {
@@ -146,7 +139,7 @@ export class AppService {
           username: user.user_name,
         },
         {
-          expiresIn: '30m',
+          expiresIn: '30s',
         },
       );
 
@@ -163,7 +156,7 @@ export class AppService {
         httpOnly: true,
       });
       res.cookie('access_token', access_token, {
-        maxAge: 1000 * 60 * 30,
+        maxAge: 1000 * 30,
         httpOnly: true,
       });
       return {

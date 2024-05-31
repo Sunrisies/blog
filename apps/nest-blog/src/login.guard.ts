@@ -24,7 +24,7 @@ export class LoginGuard implements CanActivate {
     const access_token = parsedCookies.access_token;
     console.log(access_token, 'tokentoken');
     if (!access_token) {
-      throw new UnauthorizedException('请重新登录');
+      throw new UnauthorizedException('access_token 失效,请走刷新token流程');
     }
     try {
       info = this.jwtService.verify(access_token);

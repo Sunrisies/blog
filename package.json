@@ -24,6 +24,7 @@
     }
   },
   "dependencies": {
+    "@commitlint/config-conventional": "^19.2.2",
     "cz-git": "^1.9.2"
   }
 }

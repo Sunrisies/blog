@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+    <title>测试接口</title>
+</head>
+
+<body>
+    <script>
+        const init = async (api) => {
+            const data = await fetch(`http://localhost:80/api/login`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "user_name": "朝阳",
+                    "pass_word": "1234567"
+                })
+            })
+            console.log(data, '接口返回数据')
+        }
+        // init('api/login');
+        setTimeout(() => {
+            // init('api/test2');
+        }, 3000)
+        const cookie = document.cookie;
+        console.log(cookie, 'cookie')
+        // 获取文章列表
+        const getArticleList = async () => {
+            const response = await fetch("http://localhost:80/api/article", {
+                method: 'GET',
+                credentials: 'include',
+            })
+            let data = await response.json()
+            console.log(data, '文章列表')
+            if (data.code === 401) {
+                refreshToken()
+            }
+        }
+        setTimeout(() => {
+            getArticleList();
+        }, 2000);
+
+        const refreshToken = async () => {
+            const response = await fetch(`http://localhost:80/api/refresh`, {
+                method: 'GET',
+                credentials: 'include',
+            })
+            let data = await response.json()
+            if (data.code === 200 && data.message === '刷新成功') {
+                console.log('刷新成功')
+                getArticleList();
+            }
+        }
+    </script>
+</body>
+
+</html>
