@@ -11,6 +11,7 @@ import { ArticleModule } from './article/article.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
+import { createClient } from 'redis';
 import { LoginGuard } from './login.guard';
 import { UnauthorizedExceptionFilter } from './utils/unauthorized-exception.filter';
 import configuration from './configuration';
@@ -66,7 +67,7 @@ interface DatabaseConfig {
     JwtModule.register({
       global: true,
       secret: 'guang',
-      signOptions: { expiresIn: '7d' },
+      signOptions: { expiresIn: '30m' },
     }),
     UserModule,
     ArticleModule,
@@ -77,8 +78,17 @@ interface DatabaseConfig {
   providers: [
     AppService,
     {
-      provide: APP_GUARD,
-      useClass: LoginGuard,
+      provide: 'REDIS_CLIENT',
+      async useFactory() {
+        const client = createClient({
+          socket: {
+            host: 'localhost',
+            port: 6379,
+          },
+        });
+        await client.connect();
+        return client;
+      },
     },
     {
       provide: APP_FILTER,

@@ -1,0 +1,17 @@
+# Dockerfile  
+# 基于 MySQL 8.0.3 镜像  
+FROM mysql:8.0.3  
+  
+# 设置环境变量  
+ENV MYSQL_ROOT_PASSWORD=123456  
+  
+# 将 init.sql 复制到容器的 /docker-entrypoint-initdb.d/ 目录  
+# MySQL 官方镜像会在容器启动时自动执行这个目录下的所有 .sql 文件  
+COPY init.sql /docker-entrypoint-initdb.d/  
+  
+# 暴露 3306 端口  
+EXPOSE 3306  
+  
+# 设置容器启动时执行的命令  
+# 这里不需要设置，因为 MySQL 官方镜像已经设置了正确的 CMD  
+# CMD ["mysqld"]

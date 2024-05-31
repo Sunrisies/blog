@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
+import  * as cookieParser  from 'cookie-parser';
 import { ResponseInterceptor } from './utils/response.interceotor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -10,7 +11,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
   // 设置全局前缀
   app.useGlobalInterceptors(new ResponseInterceptor());
-
+  app.use(cookieParser());
   app.setGlobalPrefix('api');
   const port = 80;
   await app.listen(port, () => {

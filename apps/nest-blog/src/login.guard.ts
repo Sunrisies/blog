@@ -8,20 +8,9 @@ import {
   Module,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
 import * as cookie from 'cookie';
-import { APP_FILTER } from '@nestjs/core';
-import {  } from './utils/unauthorized-exception.filter';
 let info;
 @Injectable()
-// @Module({
-//   providers: [
-//     {
-//       provide: APP_FILTER,
-//       useClass: UnauthorizedExceptionFilter,
-//     },
-//   ],
-// })
 export class LoginGuard implements CanActivate {
   @Inject(JwtService)
   private jwtService: JwtService;
@@ -32,13 +21,13 @@ export class LoginGuard implements CanActivate {
     const cookieString = request.headers.cookie || ''; // user_id=1; user_name=%E6%9C%9D%E9%98%B3
     const parsedCookies = cookie.parse(cookieString);
 
-    const token = parsedCookies.token;
-    console.log(token, 'tokentoken');
-    if (!token) {
+    const access_token = parsedCookies.access_token;
+    console.log(access_token, 'tokentoken');
+    if (!access_token) {
       throw new UnauthorizedException('请重新登录');
     }
     try {
-      info = this.jwtService.verify(token);
+      info = this.jwtService.verify(access_token);
       console.log(info, 'infoinfo');
       (request as any).user = info.user;
       return true;

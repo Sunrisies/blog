@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -40,4 +40,6 @@ export class ArticleController {
   remove(@Param('id') id: string) {
     return this.articleService.remove(+id);
   }
+
+  
 }
