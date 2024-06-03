@@ -17,7 +17,11 @@ export class ResponseInterceptor<T> implements NestInterceptor {
     return next
       .handle()
       .pipe(
-        map(({ data, message = '请求成功', code = 200 }) => ({ code, message, data })),
+        map(({ data, message = '请求成功', code = 200 }) => ({
+          code,
+          message,
+          data,
+        })),
       );
   }
 }

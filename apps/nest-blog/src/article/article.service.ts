@@ -12,21 +12,26 @@ export class ArticleService {
     private articleRepository: Repository<Article>,
   ) {}
 
- async create(createArticleDto: CreateArticleDto) {
-    if (!createArticleDto.cover || !createArticleDto.title || !createArticleDto.author || !createArticleDto.content) {
+  async create(createArticleDto: CreateArticleDto) {
+    if (
+      !createArticleDto.cover ||
+      !createArticleDto.title ||
+      !createArticleDto.author ||
+      !createArticleDto.content
+    ) {
       throw new Error('cover, title, author, and content are required');
     }
     // createArticleDto 中的cover跟title,author ,content都是必填项,创建时间和更新时间由数据库自动生成
     // createArticleDto.publish_time = new Date();
-    const article =await this.articleRepository.create(createArticleDto);
-    const result =await this.articleRepository.save(article);
-    if(result){
+    const article = await this.articleRepository.create(createArticleDto);
+    const result = await this.articleRepository.save(article);
+    if (result) {
       return {
         code: 200,
         message: '创建成功',
         data: result,
       };
-    }else{
+    } else {
       return {
         code: 500,
         message: '创建失败',

@@ -1,60 +1,58 @@
-// import HomeMain from '../components/HomeMain/Home'
-// import { readDirectory } from '../utils/index'
-// import path from 'node:path'
-// const srcDirectory = path.join(process.cwd(), 'src', 'mdx')
-// //
-// type Directory = {
-//   label: string
-//   key: string
-//   children: {
-//     label: string
-//     key: string
-//   }
-// }
+"use client";
 
-// export default async  ()=> {
-//  const list:any =  await readDirectory(srcDirectory)
-//  console.log(list)
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+import Typed from "typed.js";
+import { bindHandleScroll, removeScroll } from "@utils/elementUtils";
+import { scrollTo } from "@utils/element";
+import SysIcon from "@components/SysIcon";
+import bgImgLight from "@static/images/bg00005.jpeg";
+import { timeAixsList } from "@utils/dict";
+import { loadingImag } from "@utils/dataImage";
+import styles from "@styles/home.module.css";
+const url = "http://123.207.197.182:3000/api/";
+const url2 = "http://localhost:3001/api/";
+const loginApi = async () => {
+  const res = await fetch(`${url}login`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_name: "朝阳",
+      pass_word: "1234567",
+    }),
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  console.log(await res.json(), "/res");
 
-//   return (
-//       <HomeMain list={list} ></HomeMain>
-
-//   )
-// }
-
-'use client'
-
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useRef } from 'react'
-import Typed from 'typed.js'
-import { bindHandleScroll, removeScroll } from '@utils/elementUtils'
-import { scrollTo } from '@utils/element'
-import SysIcon from '@components/SysIcon'
-import bgImgLight from '@static/images/bg00005.jpeg'
-import { timeAixsList } from '@utils/dict'
-import { loadingImag } from '@utils/dataImage'
-import styles from '@styles/home.module.css'
-
+  // return res.json();
+};
 export default function Home() {
-  const typeTarget = useRef<any>(null)
-  const aboutDom = useRef<any>(null)
+  loginApi();
+
+  const typeTarget = useRef<any>(null);
+  const aboutDom = useRef<any>(null);
 
   const goAbout = () => {
-    const aboutTop = aboutDom.current.offsetTop
+    const aboutTop = aboutDom.current.offsetTop;
     scrollTo(aboutTop, {
-      getContainer: () => document.body || window
-    })
-  }
+      getContainer: () => document.body || window,
+    });
+  };
 
   useEffect(() => {
-    bindHandleScroll()
+    bindHandleScroll();
     const typed = new Typed(typeTarget.current, {
       strings: [
-        '浮世三千，吾爱有三，日月与卿，日为朝，月为暮，卿为朝朝暮暮',
-        'I love three things in this world. Sun,',
-        ' moon and you. Sun for morning, moon for night , ',
-        'and you forever'
+        "浮世三千，吾爱有三，日月与卿，日为朝，月为暮，卿为朝朝暮暮",
+        "I love three things in this world. Sun,",
+        " moon and you. Sun for morning, moon for night , ",
+        "and you forever",
       ],
       typeSpeed: 60,
       backSpeed: 40,
@@ -62,14 +60,14 @@ export default function Home() {
       loopCount: Infinity,
       autoInsertCss: false,
       backDelay: 2000,
-      showCursor: false
-    })
+      showCursor: false,
+    });
 
     return () => {
-      removeScroll()
-      typed.destroy()
-    }
-  }, [])
+      removeScroll();
+      typed.destroy();
+    };
+  }, []);
 
   return (
     <div className={styles.home}>
@@ -80,7 +78,11 @@ export default function Home() {
           <div className={styles.description} ref={typeTarget} />
         </div>
         <div className={styles.jiantou}>
-          <SysIcon className={styles.jiantou_icon} type="icon-a-jiantou-xia" onClick={goAbout} />
+          <SysIcon
+            className={styles.jiantou_icon}
+            type="icon-a-jiantou-xia"
+            onClick={goAbout}
+          />
         </div>
       </div>
       <div className={styles.page_box} ref={aboutDom}>
@@ -92,7 +94,9 @@ export default function Home() {
               className={styles.page_item_bg}
               width={2000}
               height={1320}
-              src={'https://api-render.wp-boke.work/picture/daily-bing?is_redirect=true'}
+              src={
+                "https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg"
+              }
               alt="必应每日壁纸"
               placeholder="blur"
               blurDataURL={loadingImag}
@@ -107,7 +111,9 @@ export default function Home() {
               className={styles.page_item_bg}
               width={2000}
               height={1320}
-              src={'https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg'}
+              src={
+                "https://images.pexels.com/photos/518543/pexels-photo-518543.jpeg"
+              }
               alt="热点"
               placeholder="blur"
               blurDataURL={loadingImag}
@@ -120,7 +126,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.timeAixs_box}>
-       <div className={styles.timeAixs_title}>GROWTH RECORD</div>
+        <div className={styles.timeAixs_title}>GROWTH RECORD</div>
         <div className={styles.timeAixs_desc}>「 左右滑动查看 」</div>
         <div className={styles.timeAixs}>
           <div className={styles.timeAixs_left} />
@@ -138,7 +144,7 @@ export default function Home() {
           </div>
           <div className={styles.timeAixs_right} />
         </div>
-      </div> 
+      </div>
     </div>
-  )
+  );
 }

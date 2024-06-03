@@ -40,6 +40,4 @@ export class ArticleController {
   remove(@Param('id') id: string) {
     return this.articleService.remove(+id);
   }
-
-  
 }

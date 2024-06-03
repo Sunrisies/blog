@@ -28,26 +28,26 @@ export default function RootLayout({
       </Head>
       <body>
         {/* <ConfigProvider direction="rtl"> */}
-          <AntdRegistry>
-            <div className={styles.main}>
-              <div className={styles.bg_card}>
-                <Image
-                  className={styles.bg_card_img}
-                  width={2000}
-                  height={1000}
-                  src={bgImgLight}
-                  alt="blog-bg"
-                  priority={true}
-                />
-              </div>
-              <NavBar />
-              <div className={styles.container}>{children}</div>
-
-              {/* <Header className={styles.header}></Header> */}
-              {/* <div className={styles.container}>{children}</div>*/}
-              <Footer className={styles.footer} title="尾部"></Footer>
+        <AntdRegistry>
+          <div className={styles.main}>
+            <div className={styles.bg_card}>
+              <Image
+                className={styles.bg_card_img}
+                width={2000}
+                height={1000}
+                src={bgImgLight}
+                alt="blog-bg"
+                priority={true}
+              />
             </div>
-          </AntdRegistry>
+            <NavBar />
+            <div className={styles.container}>{children}</div>
+
+            {/* <Header className={styles.header}></Header> */}
+            {/* <div className={styles.container}>{children}</div>*/}
+            <Footer className={styles.footer} title="尾部"></Footer>
+          </div>
+        </AntdRegistry>
         {/* </ConfigProvider> */}
       </body>
     </html>

@@ -6,9 +6,9 @@ export class RegisterDto {
   @Length(2, 30, {
     message: '用户名长度必须在 2 到 30 个字符之间',
   })
-//   @Matches(/^[a-zA-Z0-9#$%_-]+$/, {
-//     message: '用户名只能是字母、数字或者 #、$、%、_、- 这些字符',
-//   })
+  //   @Matches(/^[a-zA-Z0-9#$%_-]+$/, {
+  //     message: '用户名只能是字母、数字或者 #、$、%、_、- 这些字符',
+  //   })
   user_name: string;
 
   @IsString({ message: '密码必须是字符串' })

@@ -5,13 +5,13 @@ interface searchParamsInterface {
   id: string;
 }
 const getData = async () => {
-  // const res = await fetch("http://123.207.197.182:80/api/article", {
-  //   cache: "no-cache",
-  // });
-
-  const res = await fetch("http://localhost:80/api/article", {
+  const res = await fetch("http://123.207.197.182:3000/api/article", {
     cache: "no-cache",
   });
+
+  // const res = await fetch("http://localhost:80/api/article", {
+  //   cache: "no-cache",
+  // });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

@@ -53,16 +53,29 @@ interface DatabaseConfig {
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<DatabaseConfig>('db').host,
-        port: configService.get<DatabaseConfig>('db').port,
-        username: configService.get<DatabaseConfig>('db').username,
-        password: configService.get<DatabaseConfig>('db').password,
-        database: configService.get<DatabaseConfig>('db').database,
-        entities: [...entities],
-        synchronize: true,
-      }),
+      useFactory: async (configService: ConfigService) => {
+        console.log(configService.get<DatabaseConfig>('db'), 'myql');
+        return {
+          type: 'mysql',
+          host: configService.get<DatabaseConfig>('db').host,
+          port: configService.get<DatabaseConfig>('db').port,
+          username: configService.get<DatabaseConfig>('db').username,
+          password: configService.get<DatabaseConfig>('db').password,
+          database: configService.get<DatabaseConfig>('db').database,
+          entities: [...entities],
+          synchronize: true,
+        };
+      },
+      //    ({
+      //   type: 'mysql',
+      //   host: configService.get<DatabaseConfig>('db').host,
+      //   port: configService.get<DatabaseConfig>('db').port,
+      //   username: configService.get<DatabaseConfig>('db').username,
+      //   password: configService.get<DatabaseConfig>('db').password,
+      //   database: configService.get<DatabaseConfig>('db').database,
+      //   entities: [...entities],
+      //   synchronize: true,
+      // }),
     }),
     JwtModule.register({
       global: true,
@@ -82,7 +95,8 @@ interface DatabaseConfig {
       async useFactory() {
         const client = createClient({
           socket: {
-            host: 'localhost',
+            host: 'redis',
+            // host:'localhost',
             port: 6379,
           },
         });

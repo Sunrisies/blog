@@ -16,7 +16,6 @@ export class UnauthorizedExceptionFilter implements ExceptionFilter {
   catch(exception: UnauthorizedException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    console.log(exception, 'response');
     const { message } = exception;
     let code;
     switch (message) {

@@ -18,13 +18,13 @@ export class Users extends BaseEntity {
   @Column({ type: 'varchar', name: 'pass_word' })
   pass_word: string;
 
-  @Column({ type: 'varchar', name: 'image',default:null   })
+  @Column({ type: 'varchar', name: 'image', default: null })
   image: string;
 
-  @Column({ type: 'varchar', name: 'phone',default:null  })
+  @Column({ type: 'varchar', name: 'phone', default: null })
   phone: string;
 
-  @Column({ type: 'varchar', name: 'email', unique: true,default:null  })
+  @Column({ type: 'varchar', name: 'email', unique: true, default: null })
   email: string;
 
   @CreateDateColumn({

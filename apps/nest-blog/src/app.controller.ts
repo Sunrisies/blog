@@ -7,7 +7,7 @@ import {
   Res,
   Query,
   Inject,
-  Req
+  Req,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
@@ -21,7 +21,7 @@ export class AppController {
     private readonly appService: AppService,
     private configService: ConfigService,
     @Inject(JwtService) private jwtService: JwtService,
-  ) { }
+  ) {}
   // 获取cookie的值
 
   @Get('refresh')

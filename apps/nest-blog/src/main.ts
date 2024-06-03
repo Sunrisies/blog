@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(
     cors({
-      origin: 'http://localhost:9090', // 允许来自这个源的请求
+      origin: ['http://localhost:3000','http://47.111.168.59:80','https://47.111.168.59'], // 允许来自这个源的请求
       credentials: true, // 允许携带凭据的请求
     }),
   );
