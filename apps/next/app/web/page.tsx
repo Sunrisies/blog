@@ -17,7 +17,7 @@ const url2 = "http://localhost:3001/api/";
 const loginApi = async () => {
   http.post('login', {
     user_name: "朝阳",
-    pass_word: "1234567",
+    pass_word: "12345672",
   }).then(async(res) => {
     // console.log(await res.json(),'res')
   }).catch((err) => {

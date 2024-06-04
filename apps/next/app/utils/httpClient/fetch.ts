@@ -1,5 +1,7 @@
+import { message } from "antd";
 type ErrorObject = {
-  message: string;
+  mes: string;
+  type: 'success' | 'error' | 'warning' | 'info';
 };
 
 type RequestOptions = {
@@ -9,48 +11,69 @@ type RequestOptions = {
   headers?: Record<string, string>;
 };
 // 定义一个响应拦截装饰器
-const responseInterceptor = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+const responseInterceptor = (
+  target: any,
+  propertyKey: string,
+  descriptor: PropertyDescriptor
+) => {
   const originalMethod = descriptor.value;
-console.log("responseInterceptor", target, propertyKey, descriptor)
-  descriptor.value = async function(this: any, url: string, body: object) {
-    console.log('Before sending request');
-  
+  console.log("responseInterceptor", target, propertyKey, descriptor);
+  descriptor.value = async function (this: any, url: string, body: object) {
+    console.log("Before sending request");
+
     const response = await originalMethod.call(this, url, body);
 
     const responseData = await response.json();
-    console.log('Intercepted Response Data:', responseData);
-
-    console.log('After receiving response');
+    console.log("Intercepted Response Data:", responseData);
+   const {  mes ,type} =  handleResponseError(responseData);
+   console.log(message,'message',type)
+  message.open({ content: mes, type })
 
     return responseData;
   };
 };
+type Response = {
+  code: number;
+  data: any;
+  message: string;
+};
+const handleResponseError = (response: Response): ErrorObject => {
+  console.log("handleResponseError", response);
+  const error: ErrorObject = {
+    mes: "",
+    type: "success",
+  };
+  switch (response.code) {
+    case 200:
+      error.mes = response.message; // 假设有data字段
+      error.type = "success";
+      break;
+    case 400:
+      error.mes = response.message; // 假设有data字段
+      error.type = "error";
+      break;
+    case 401:
+      error.mes = response.message || "登录信息已过期，请登录";
+      error.type = "error";
+      // logout();  // 假设有logout函数
+      // handle401Error();
+      break;
+    case 403:
+      error.mes = response.message || "拒绝访问";
+      error.type = "error";
+      break;
+    case 408:
+      error.mes = "请求超时";
+      error.type = "error";
+      break;
+    // 其他状态码的处理略...
+    default:
+      break;
+  }
+  return error;
+};
 
-// handleResponseError = (response: Response): ErrorObject => {
-//   const error: ErrorObject = {
-//     message: "",
-//   };
-//   switch (response.status) {
-//     case 400:
-//       error.message = response.data.message; // 假设有data字段
-//       break;
-//     case 401:
-//       this.handle401Error();
-//       break;
-//     case 403:
-//       error.message = response.data.message || "拒绝访问";
-//       break;
-//     case 408:
-//       error.message = "请求超时";
-//       break;
-//     // 其他状态码的处理略...
-//     default:
-//       break;
-//   }
-//   return error;
-// };
-
-// handle401Error = (): void => {
+// const handle401Error = (): void => {
 //   // logout();  // 假设有logout函数
 //   const error: ErrorObject = {
 //     message: "登录信息已过期，请登录",
