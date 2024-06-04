@@ -11,9 +11,18 @@ import bgImgLight from "@static/images/bg00005.jpeg";
 import { timeAixsList } from "@utils/dict";
 import { loadingImag } from "@utils/dataImage";
 import styles from "@styles/home.module.css";
+import http from '@utils/httpClient/fetch'
 const url = "http://123.207.197.182:3000/api/";
 const url2 = "http://localhost:3001/api/";
 const loginApi = async () => {
+  http.post('login', {
+    user_name: "朝阳",
+    pass_word: "1234567",
+  }).then(async(res) => {
+    // console.log(await res.json(),'res')
+  }).catch((err) => {
+    // console.log(err,'err')
+  })
   const res = await fetch(`${url}login`, {
     method: "POST",
     credentials: "include",
@@ -28,7 +37,7 @@ const loginApi = async () => {
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
-  console.log(await res.json(), "/res");
+  // console.log(await res.json(), "/res");
 
   // return res.json();
 };
