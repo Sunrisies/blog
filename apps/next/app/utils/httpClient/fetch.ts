@@ -131,7 +131,6 @@ const instance = axios.create({
   timeout: 5000, // 请求超时时间
   // 可以在这里添加其他公共选项，如headers等
 });
-
 // 添加请求拦截器
 instance.interceptors.request.use(
   (config) => {
@@ -140,6 +139,9 @@ instance.interceptors.request.use(
     // if (localStorage.getItem('token')) {
     //   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
     // }
+    // withCredentials
+
+    config.withCredentials = true;
     return config;
   },
   (error) => {
@@ -159,8 +161,8 @@ instance.interceptors.response.use(
     // }
     //
     const { mes, type } = handleResponseError(response.data);
-    console.log(typeof window === 'undefined','=================')
-    console.log(message, "message");
+    console.log(typeof window ,'=================080',process.browser)
+    console.log(JSON.stringify(message), "message");
     // message.open({ content: mes, type });
     return response;
   },

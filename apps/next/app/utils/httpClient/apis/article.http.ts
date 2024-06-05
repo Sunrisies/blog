@@ -14,8 +14,10 @@ interface ApiResponse<T> {
 
 // 请求文章列表
 export const getArticleList = async () => {
-  console.log(http,'http')
-  const response = await http.get<ApiResponse<ArticleList[]>>(URL);
+  console.log(http, "http");
+  const response = await http.get<ApiResponse<ArticleList[]>>(URL, {
+    headers: { 'cache-control': 'no-cache' }
+  });
   return response.data.data;
 };
 
