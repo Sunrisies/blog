@@ -12,37 +12,10 @@ import { timeAixsList } from "@utils/dict";
 import { loadingImag } from "@utils/dataImage";
 import styles from "@styles/home.module.css";
 import http from '@utils/httpClient/fetch'
-const url = "http://123.207.197.182:3000/api/";
-const url2 = "http://localhost:3001/api/";
-const loginApi = async () => {
-  http.post('login', {
-    user_name: "朝阳",
-    pass_word: "12345672",
-  }).then(async(res) => {
-    // console.log(await res.json(),'res')
-  }).catch((err) => {
-    // console.log(err,'err')
-  })
-  const res = await fetch(`${url}login`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user_name: "朝阳",
-      pass_word: "1234567",
-    }),
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  // console.log(await res.json(), "/res");
+import {LoginApi} from '@/utils/httpClient/apis/user'
 
-  // return res.json();
-};
 export default function Home() {
-  loginApi();
+  LoginApi();
 
   const typeTarget = useRef<any>(null);
   const aboutDom = useRef<any>(null);

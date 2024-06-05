@@ -20,7 +20,7 @@ export class ArticleController {
   create(@Body() createArticleDto: CreateArticleDto) {
     return this.articleService.create(createArticleDto);
   }
-  @UseGuards(LoginGuard)
+  // @UseGuards(LoginGuard)
   @Get()
   findAll() {
     return this.articleService.findAll();

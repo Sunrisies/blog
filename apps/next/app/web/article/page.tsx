@@ -1,37 +1,36 @@
 "use strict";
 import HomeMain from "@/components/HomeMain/Home";
 import styles from "./article.module.scss";
+import { getArticleList } from "@/utils/httpClient/apis/article.http";
+import axios from "axios";
 interface searchParamsInterface {
   id: string;
 }
-const getData = async () => {
-  const res = await fetch("http://123.207.197.182:3000/api/article", {
-    cache: "no-cache",
-  });
-
-  // const res = await fetch("http://localhost:80/api/article", {
-  //   cache: "no-cache",
-  // });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-};
-const filterFetch = async () => {
-  const { data, pageSize, message, Code, page } = await getData();
-  if (Code !== 200) {
-    return new Error("请求错误");
-  }
-  // console.log(data,'data')
-  return data;
-};
+// {
+//   "id": 1,
+//   "title": "农土列来价第地叫报马算院查响全",
+//   "author": "龙秀英",
+//   "cover": "http://dummyimage.com/88x31"
+// }
+type ArticleList = Array<{
+  id: number;
+  title: string;
+  author: string;
+  cover: string;
+}>;
 export default async () => {
-  const data = await filterFetch();
+  const data = await getArticleList();
+  // axios.get("http://localhost:80/api/article").then((res) => {
+  //   console.log(res);
+  // });
+  console.log(data);
   return (
     <>
       <div className={styles.container}>
         <div>文章列表</div>
-        <HomeMain list={data}></HomeMain>
+        {/* data是接口返回的文章列表数据，如果为空，则显示暂无数据 */}
+        {/* {data.length === 0 && <div>暂无数据</div>}
+        {data.length > 0 && <HomeMain list={data}></HomeMain>} */}
       </div>
     </>
   );
