@@ -5,32 +5,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { Avatar, List, message } from "antd";
 import VirtualList from "rc-virtual-list";
 import { addLayoutNavStyle, removeLayoutNavStyle } from "@utils/elementUtils";
+import { Article, ArticleList } from "@/types/article.type";
 
-type Directory = {
-  title: string;
-  id: string;
-  author: string;
-  cover: string;
-};
-interface UserItem {
-  email: string;
-  gender: string;
-  name: {
-    first: string;
-    last: string;
-    title: string;
-  };
-  nat: string;
-  picture: {
-    large: string;
-    medium: string;
-  };
-  thumbnail: string;
-}
 const fakeDataUrl =
   "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
 const ContainerHeight = 700;
-export default function Home({ list }: { list: Directory[] }) {
+export default function Home({ list }: { list: ArticleList }) {
   const homeContainerRef = useRef<any>(null);
   // console.log(list,'list')
   const [ContainerHeight, setContainerHeight] = useState(0);
@@ -59,7 +39,7 @@ export default function Home({ list }: { list: Directory[] }) {
     ) {
     }
   };
-  const handleClick = (item: Directory) => {
+  const handleClick = (item: Article) => {
     router.push(`article/${item.id}`);
   };
   return (

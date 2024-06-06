@@ -1,11 +1,6 @@
 const URL = "article";
 import http from "@utils/httpClient/fetch";
-type ArticleList = Array<{
-  id: number;
-  title: string;
-  author: string;
-  cover: string;
-}>;
+import { ArticleList,Article } from "@/types/article.type";
 interface ApiResponse<T> {
   code: number;
   data: T;
@@ -14,19 +9,16 @@ interface ApiResponse<T> {
 
 // 请求文章列表
 export const getArticleList = async () => {
-  console.log(http, "http");
   const response = await http.get<ApiResponse<ArticleList[]>>(URL, {
-    headers: { 'cache-control': 'no-cache' }
+    headers: { "cache-control": "no-cache" },
   });
   return response.data.data;
 };
 
 // 请求文章详情
-export const getArticleDetail = (id: number) => {
-  return {
-    url: `${URL}/${id}`,
-    method: "get",
-  };
+export const getArticleDetail = async (id: number) => {
+  const response = await http.get<ApiResponse<Article>>(`${URL}/${id}`);
+  return response.data.data;
 };
 
 // 发布文章

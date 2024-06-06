@@ -4,10 +4,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCallback, useContext, useEffect, useState } from "react";
 import SysIcon from "../SysIcon";
-import { navList } from "./routes";
+import { navList, NavItem } from "./routes";
 // import logo_black from "../static/images/logo_black.png";
-import logo_black from '../../static/images/logo_black.png'
-import logo_white from '../../static/images/logo_white.png'
+import logo_black from "@/static/images/logo_black.png";
+import logo_white from "@/static/images/logo_white.png";
 // import logo_white from "@public/images/logo_white.png";
 import { handleThemeChange } from "../../utils/dataUtils";
 import { LayoutContext } from "../../store/layoutStore";
@@ -19,9 +19,8 @@ export default function Navbar() {
   const [theme, setTheme] = useState<any>(1);
   // 是否弹出遮罩
   const [avtive, setActive] = useState<boolean>(false);
-
   // 导航item
-  const navItem = (obj:any) => {
+  const navItem = (obj: NavItem) => {
     return (
       <Link
         className={`${styles.nav_item} nav_item_text ${
@@ -40,7 +39,7 @@ export default function Navbar() {
 
   // 切换主题
   const themeSwitch = useCallback(
-    (event:any) => {
+    (event: any) => {
       if (event === "click") {
         document.documentElement.classList.toggle("dark");
         setTheme(theme === 1 ? 2 : 1);

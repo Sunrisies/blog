@@ -3,8 +3,8 @@ import Me from "@/components/markdown";
 import HomeMain from "@/components/HomeMain/Home";
 import { readMarkdownFile } from "@/utils/markdown";
 import MdEditorRt from "@/components/mdEditorRt/mdEditorRt";
-import path from "node:path";
 import styles from "./id.module.scss";
+import { getArticleDetail } from "@/utils/httpClient/apis/article.http";
 type Article = {
   id: number;
   title: string;
@@ -18,11 +18,12 @@ interface searchParamsInterface {
   id: string;
 }
 async function getData(id: number) {
-  const res = await fetch(`http://123.207.197.182:80/api/article/${id}`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
+ const data = await getArticleDetail(id)
+  // const res = await fetch(`http://123.207.197.182:80/api/article/${id}`);
+  // if (!res.ok) {
+  //   throw new Error("Failed to fetch data");
+  // }
+  // return res.json();
 }
 const filterFetch = async (id: number) => {
   const { Code, message, ...data } = await getData(id);
@@ -33,14 +34,16 @@ const filterFetch = async (id: number) => {
   return data;
 };
 export default async ({ params }: { params: searchParamsInterface }) => {
-  const data: Article = await filterFetch(+params.id);
+  // const data: Article = await filterFetch(+params.id);
+  const data = await getArticleDetail(+params.id)
+  console.log(data,'----------------')
   return (
     <>
       <div className={styles.container}>
         <div>{data.title}</div>
         <div className={styles.author}>{data.author}</div>
         <img src={data.cover} alt="cover" className={styles.cover} />
-        <MdEditorRt books={data.content}></MdEditorRt>
+        <MdEditorRt books={data.content!}></MdEditorRt>
       </div>
     </>
   );
