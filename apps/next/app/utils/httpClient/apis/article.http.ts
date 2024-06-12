@@ -22,12 +22,11 @@ export const getArticleDetail = async (id: number) => {
 };
 
 // 发布文章
-export const publishArticle = (data: any) => {
-  return {
-    url: URL,
-    method: "post",
-    data,
-  };
+export const publishArticle = async(data: any) => {
+  const response = await  http.post<ApiResponse<Article>>(URL, data);
+  console.log(response);
+  return response.data.data;
+  
 };
 
 // 更新文章

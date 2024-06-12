@@ -95,8 +95,8 @@ interface DatabaseConfig {
       async useFactory() {
         const client = createClient({
           socket: {
-            // host: 'redis',
-            host:'localhost',
+            host: 'redis',
+            // host:'localhost',
             port: 6379,
           },
         });

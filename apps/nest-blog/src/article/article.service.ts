@@ -13,16 +13,6 @@ export class ArticleService {
   ) {}
 
   async create(createArticleDto: CreateArticleDto) {
-    if (
-      !createArticleDto.cover ||
-      !createArticleDto.title ||
-      !createArticleDto.author ||
-      !createArticleDto.content
-    ) {
-      throw new Error('cover, title, author, and content are required');
-    }
-    // createArticleDto 中的cover跟title,author ,content都是必填项,创建时间和更新时间由数据库自动生成
-    // createArticleDto.publish_time = new Date();
     const article = await this.articleRepository.create(createArticleDto);
     const result = await this.articleRepository.save(article);
     if (result) {

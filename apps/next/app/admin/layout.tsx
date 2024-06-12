@@ -80,6 +80,19 @@ const items: Item[] = [
     label: "设置",
     path: "admin/settings",
   },
+  {
+    key: "9",
+    icon: <ShopOutlined />,
+    label: "关于",
+    path: "admin/about",
+  },
+
+  {
+    key: "10",
+    icon: <ShopOutlined />,
+    label: "测试",
+    path: "/admin/upload",
+  },
 ];
 export default function RootLayout({
   children,

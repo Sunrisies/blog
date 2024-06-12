@@ -24,11 +24,12 @@ interface ApiResponse<T> {
   message: string;
 }
 // console.log(msg,'==2=2==2-------------')
-// // const BASE_URL = "http://123.207.197.182:3000/api/";
+const BASE_URL = "http://123.207.197.182:3000/api/";
 
 // // const url = "http://123.207.197.182:3000/api/";
-// // const url2 = "http://localhost:3001/api/";
-const BASE_URL = "http://localhost:80/api/";
+// const BASE_URL = "http://localhost:3001/api/";
+// const BASE_URL = "http://localhost:80/api/";
+
 
 const handleResponseError = (response: ApiResponse<any>): ErrorObject => {
   const error: ErrorObject = {
@@ -142,6 +143,7 @@ instance.interceptors.request.use(
     // withCredentials
 
     config.withCredentials = true;
+    console.log(config, "config");
     return config;
   },
   (error) => {
@@ -161,9 +163,11 @@ instance.interceptors.response.use(
     // }
     //
     const { mes, type } = handleResponseError(response.data);
-    console.log(typeof window ,'=================080',process.browser)
-    console.log(JSON.stringify(message), "message");
-    // message.open({ content: mes, type });
+    console.log(typeof window)
+    // if(typeof window !== undefined){
+    //   console.log('pc',message)
+    //   message.open({ content: mes, type });
+    // }
     return response;
   },
   (error: AxiosError) => {
@@ -183,69 +187,4 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-class NetworkService {
-
-}
 export default instance
-// class instance {
-//   private instance: AxiosInstance;
-
-//   constructor(baseURL: string) {
-//     this.instance = axios.create({
-//       baseURL,
-//       timeout: 5000,
-//     });
-//     console.log(message, "message");
-
-//     // 添加请求拦截器
-//     this.instance.interceptors.request.use(
-//       (config) => {
-//         // 可以在这里添加token到请求头
-//         // if (localStorage.getItem('token')) {
-//         //   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-//         // }
-//         return config;
-//       },
-//       (error) => {
-//         return Promise.reject(error);
-//       }
-//     );
-
-//     // 添加响应拦截器
-//     this.instance.interceptors.response.use(
-//       (response: AxiosResponse<ApiResponse<any>>) => {
-//         const { mes, type } = handleResponseError(response.data);
-//         // 如果需要根据响应状态码做不同处理，可以在这里添加
-//         // 例如：if (response.data.code !== 200) { ... }
-//         return response.data; // 只返回data字段
-//       },
-//       (error: AxiosError) => {
-//         if (error.response) {
-//           // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-//           console.log(error.response.data);
-//           console.log(error.response.status);
-//           console.log(error.response.headers);
-//         } else if (error.request) {
-//           // 请求已发出，但没有收到响应
-//           console.log(error.request);
-//         } else {
-//           // 发送请求时发生了某些错误
-//           console.log("Error", error.message);
-//         }
-//         return Promise.reject(error);
-//       }
-//     );
-//   }
-
-//   // 封装请求方法
-//   get<T = any>(url: string, params?: AxiosRequestConfig['params']) {
-//     return this.instance.get<ApiResponse<T>>(url, { params });
-//   }
-
-//   // post<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
-//   //   return this.instance.post<ApiResponse<T>>(url, data, config);
-//   // }
-
-//   // 可以继续封装其他HTTP方法
-// }
-// export default new instance(BASE_URL);
