@@ -118,7 +118,7 @@ const ArticleList = () => {
     {
       title: "operation",
       dataIndex: "operation",
-      render: (_, record) =>
+      render: (_:any, record:any) =>
         dataSource.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"

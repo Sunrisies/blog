@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import React from "react";
 import {
   AppstoreOutlined,
@@ -14,7 +14,7 @@ import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import Head from "next/head";
+import { Metadata } from 'next'
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Footer from "@/components/Footer/footer";
 import "@styles/globals.css";
@@ -94,6 +94,9 @@ const items: Item[] = [
     path: "/admin/upload",
   },
 ];
+export const metadata: Metadata = {
+  title: 'My Page Title',
+}
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -111,9 +114,6 @@ export default function RootLayout({
   };
   return (
     <html lang="zh">
-      <Head>
-        <link rel="icon" href="BlogIcon" />
-      </Head>
       <body>
         <AntdRegistry>
           <Layout className={styles.layout}>

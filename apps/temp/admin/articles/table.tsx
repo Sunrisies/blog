@@ -61,7 +61,7 @@ const ArticleList = async ({ dataSource }: { dataSource: any }) => {
     {
       title: "operation",
       dataIndex: "operation",
-      render: (_, record) =>
+      render: (_:any, record:any) =>
         dataSource.length >= 1 ? (
           <Popconfirm
             title="是否删除该文章?"

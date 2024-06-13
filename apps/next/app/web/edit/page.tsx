@@ -4,7 +4,6 @@ import { Input, Button, message } from "antd";
 import { MdEditor, MdCatalog, MdPreview } from "md-editor-rt";
 import "md-editor-rt/lib/style.css";
 import styles from "./edit.module.scss";
-import { produce } from "immer";
 import { useImmer } from "use-immer";
 import { publishArticle } from "@/utils/httpClient/apis/article.http";
 

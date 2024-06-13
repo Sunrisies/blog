@@ -17,26 +17,9 @@ type Article = {
 interface searchParamsInterface {
   id: string;
 }
-async function getData(id: number) {
- const data = await getArticleDetail(id)
-  // const res = await fetch(`http://123.207.197.182:80/api/article/${id}`);
-  // if (!res.ok) {
-  //   throw new Error("Failed to fetch data");
-  // }
-  // return res.json();
-}
-const filterFetch = async (id: number) => {
-  const { Code, message, ...data } = await getData(id);
-  if (Code !== 200) {
-    new Error("请求错误");
-    return;
-  }
-  return data;
-};
+
 export default async ({ params }: { params: searchParamsInterface }) => {
-  // const data: Article = await filterFetch(+params.id);
   const data = await getArticleDetail(+params.id)
-  console.log(data,'----------------')
   return (
     <>
       <div className={styles.container}>

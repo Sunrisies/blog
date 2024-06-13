@@ -13,7 +13,6 @@ import { Input, Space } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
 import Blog from "@/static/blog.svg";
 import { useRouter, useSearchParams } from "next/navigation";
-import { produce } from "immer";
 import { useImmer } from "use-immer";
 import styles from "./header.module.scss";
 interface HeaderProps {

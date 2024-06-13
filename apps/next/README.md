@@ -26,3 +26,11 @@ sync：同步主线或分支的Bug。
 
 docker build .
     "preDockerBuildMac": "docker rmi next || docker buildx build --platform linux/amd64 -t next:1 .",
+
+
+
+    发布流程： 
+        `必须是使用yarn install 安装依赖，不能使用pnpm install 要不然在打包的时候会报错，开发的时候可以使用pnpm install 安装依赖` 
+       npm run build 如果上传到七牛云报错，手动上传
+       npm run Push  如果sh文件没有执行，就手动执行
+

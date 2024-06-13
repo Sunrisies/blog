@@ -9,7 +9,7 @@ interface ApiResponse<T> {
 
 // 请求文章列表
 export const getArticleList = async () => {
-  const response = await http.get<ApiResponse<ArticleList[]>>(URL, {
+  const response = await http.get<ApiResponse<Article[]>>(URL, {
     headers: { "cache-control": "no-cache" },
   });
   return response.data.data;

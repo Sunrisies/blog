@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import Head from "next/head";
+import { Metadata } from "next";
+
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Header from "@/components/Header/header";
 import Footer from "@/components/Footer/footer";
@@ -23,9 +23,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh">
-      <Head>
-        <link rel="icon" href="BlogIcon" />
-      </Head>
       <body>
         {/* <ConfigProvider direction="rtl"> */}
         <AntdRegistry>

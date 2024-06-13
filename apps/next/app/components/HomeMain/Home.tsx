@@ -3,7 +3,6 @@ import styles from "@/home.module.scss";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { Avatar, List, message } from "antd";
-import VirtualList from "rc-virtual-list";
 import { addLayoutNavStyle, removeLayoutNavStyle } from "@utils/elementUtils";
 import { Article, ArticleList } from "@/types/article.type";
 
